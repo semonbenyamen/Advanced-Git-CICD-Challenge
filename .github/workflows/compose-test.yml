@@ -11,10 +11,10 @@ jobs:
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Start Docker Compose Stack
-        run: docker-compose up -d
+        run: docker compose up -d
 
       - name: Wait for services to be ready
         run: sleep 15
@@ -28,5 +28,5 @@ jobs:
       - name: Tear down stack and show logs
         if: always()
         run: |
-          docker-compose logs
-          docker-compose down
+          docker compose logs
+          docker compose down
