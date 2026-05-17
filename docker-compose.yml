@@ -8,7 +8,7 @@ services:
       MYSQL_DATABASE: testdb
 
   web:
-    image: nginx:alpine
+    image: nginx:latest
     ports:
       - "8080:80"
     depends_on:
