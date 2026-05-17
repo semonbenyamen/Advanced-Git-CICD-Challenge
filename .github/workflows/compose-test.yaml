@@ -1,0 +1,32 @@
+name: Docker Compose Integration Test
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test-compose-stack:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Start Docker Compose Stack
+        run: docker-compose up -d
+
+      - name: Wait for services to be ready
+        run: sleep 15
+
+      - name: Test the Web Service
+        run: |
+          echo "Testing if Nginx is responding on port 8080..."
+          curl -f http://localhost:8080 || exit 1
+          echo "Success! The stack is running perfectly."
+
+      - name: Tear down stack and show logs
+        if: always()
+        run: |
+          docker-compose logs
+          docker-compose down
