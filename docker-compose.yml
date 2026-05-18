@@ -8,8 +8,9 @@ services:
       MYSQL_DATABASE: testdb
 
   web:
-    image: nginx:alpine
+    image: nginx:latest
     ports:
       - "8080:80"
+    command: /bin/sh -c "echo 'Welcome Digilian' > /usr/share/nginx/html/index.html && exec nginx -g 'daemon off;'"
     depends_on:
       - db
